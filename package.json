@@ -1,0 +1,11 @@
+{
+  "name": "optimum-backend",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.8.5",
+    "tsc": "^2.0.4",
+    "typescript": "^5.2.2"
+  }
+}
