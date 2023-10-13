@@ -4,4 +4,4 @@ dist/
 *.lock
 *.log
 .env
-prisma/migrations/
+migrations/
