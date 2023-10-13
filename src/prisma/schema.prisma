@@ -11,15 +11,18 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  gender    GENDER?
-  email     String   @unique
-  phone     String?  @unique
-  password  String
-  role      ROLE
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                String   @id @default(uuid())
+  name              String
+  gender            GENDER?
+  email             String   @unique
+  phone             String?  @unique
+  password          String
+  role              ROLE
+  email_verified    Boolean  @default(false)
+  phone_verified    Boolean  @default(false)
+  profile_completed Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
 model Patient {
