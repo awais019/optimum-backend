@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "nodemon src/index.ts",
     "build": "tsc -p .",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "migrate:dev": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
+    "generate": "prisma generate"
   },
   "devDependencies": {
     "@types/compression": "^1.7.3",
