@@ -7,8 +7,8 @@
     "dev": "nodemon src/index.ts",
     "build": "tsc -p .",
     "start": "node dist/index.js",
-    "migrate:dev": "prisma migrate dev",
-    "migrate:deploy": "prisma migrate deploy",
+    "migrate:dev": "prisma migrate dev --schema src/prisma/schema.prisma",
+    "migrate:deploy": "prisma migrate deploy --schema src/prisma/schema.prisma",
     "generate": "prisma generate"
   },
   "devDependencies": {
@@ -29,6 +29,7 @@
     "express": "^4.18.2",
     "express-fileupload": "^1.4.1",
     "helmet": "^7.0.0",
+    "joi": "^17.11.0",
     "winston": "^3.11.0"
   }
 }
