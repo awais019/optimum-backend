@@ -6,6 +6,15 @@ import userService from "../services/user.service";
 export default {
   create: async (req: Request, res: Response) => {
     const { name, email, password, role } = req.body;
+
+    if (await userService.exists("email", email)) {
+      return APIHelpers.sendError(
+        res,
+        constants.BAD_REQUEST,
+        constants.EMAIL_EXISTS_MESSAGE
+      );
+    }
+
     await userService.create({ name, email, password, role });
     return APIHelpers.sendSuccess(
       res,

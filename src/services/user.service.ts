@@ -9,4 +9,12 @@ export default {
       },
     });
   },
+  exists: async (key: string, value: string): Promise<boolean> => {
+    const user = await prisma.user.findFirst({
+      where: {
+        [key]: value,
+      },
+    });
+    return !!user;
+  },
 };

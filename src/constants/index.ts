@@ -12,4 +12,5 @@ export default {
   NOT_FOUND_MESSAGE: "Not found",
   UNAUTHORIZED_MESSAGE: "Unauthorized",
   FORBIDDEN_MESSAGE: "Forbidden",
+  EMAIL_EXISTS_MESSAGE: "Email already exists",
 };
