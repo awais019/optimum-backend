@@ -7,6 +7,12 @@ import authController from "../controllers/auth.controller";
 const app = Router();
 
 app.post(
+  "/email/verify",
+  validate(authValidators.verifyEmail),
+  tryCatch(authController.verifyEmail)
+);
+
+app.post(
   "/email/resend",
   validate(authValidators.resendEmail),
   tryCatch(authController.resendEmail)

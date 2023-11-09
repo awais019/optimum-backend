@@ -14,4 +14,6 @@ export default {
   UNAUTHORIZED_MESSAGE: "Unauthorized",
   FORBIDDEN_MESSAGE: "Forbidden",
   EMAIL_EXISTS_MESSAGE: "Email already exists",
+  EMAIL_ALREADY_VERIFIED_MESSAGE: "Email already verified",
+  INVALID_CODE_MESSAGE: "Invalid code",
 };
