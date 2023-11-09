@@ -3,6 +3,7 @@ import constants from "../constants";
 import APIHelpers from "../helpers/APIHelpers";
 import cryptoHelpers from "../helpers/crypto";
 import userService from "../services/user.service";
+import logger from "../startup/logger";
 
 export default {
   create: async (req: Request, res: Response) => {
@@ -16,12 +17,17 @@ export default {
       );
     }
 
-    await userService.create({
+    const user = await userService.create({
       name,
       email,
       password: cryptoHelpers.encryptPassword(password),
       role,
     });
+
+    userService.sendVerificationEmail(user).catch((err) => {
+      logger.error(err);
+    });
+
     return APIHelpers.sendSuccess(
       res,
       null,

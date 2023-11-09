@@ -10,6 +10,7 @@ dotenv.config();
 
 const app = express();
 app.use([express.json(), helmet(), fileUpload(), compression()]);
+app.set("view engine", "ejs");
 routes(app);
 
 const port = process.env.PORT || 3000;
