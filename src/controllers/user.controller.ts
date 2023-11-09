@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import constants from "../constants";
 import APIHelpers from "../helpers/APIHelpers";
+import cryptoHelpers from "../helpers/crypto";
 import userService from "../services/user.service";
 
 export default {
@@ -15,7 +16,12 @@ export default {
       );
     }
 
-    await userService.create({ name, email, password, role });
+    await userService.create({
+      name,
+      email,
+      password: cryptoHelpers.encryptPassword(password),
+      role,
+    });
     return APIHelpers.sendSuccess(
       res,
       null,
