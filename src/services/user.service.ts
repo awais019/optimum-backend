@@ -20,6 +20,14 @@ export default {
     });
     return !!user;
   },
+  findByEmail: async (email: string): Promise<User | null> => {
+    const user = await prisma.user.findFirst({
+      where: {
+        email,
+      },
+    });
+    return user;
+  },
   sendVerificationEmail: async (user: User) => {
     const code = Math.floor(100000 + Math.random() * 900000);
     const email = await ejsHelpers.renderHTMLFile("verify", {

@@ -10,6 +10,7 @@ export default {
   SUCCESS_MESSAGE: "Success",
   ERROR_MESSAGE: "Something went wrong",
   NOT_FOUND_MESSAGE: "Not found",
+  USER_NOT_FOUND_MESSAGE: "User not found",
   UNAUTHORIZED_MESSAGE: "Unauthorized",
   FORBIDDEN_MESSAGE: "Forbidden",
   EMAIL_EXISTS_MESSAGE: "Email already exists",
