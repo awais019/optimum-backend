@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import constants from "../constants";
 import APIHelpers from "../helpers/APIHelpers";
+import jwtHelpers from "../helpers/jwt";
 import authService from "../services/auth.service";
 import userService from "../services/user.service";
 
@@ -33,9 +34,14 @@ export default {
       );
     }
 
+    const token = jwtHelpers.sign({
+      _id: user.id,
+      email: user.email,
+    });
+
     return APIHelpers.sendSuccess(
       res,
-      null,
+      token,
       constants.SUCCESS,
       constants.SUCCESS_MESSAGE
     );
