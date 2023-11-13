@@ -93,12 +93,17 @@ export default {
       },
     });
     if (role === ROLE.PATIENT) {
-      await prisma.patient.update({
+      const DOB = new Date(data.dob);
+      await prisma.patient.upsert({
         where: {
           userId: id,
         },
-        data: {
-          DOB: data.dob,
+        update: {
+          DOB,
+        },
+        create: {
+          userId: id,
+          DOB,
         },
       });
     }

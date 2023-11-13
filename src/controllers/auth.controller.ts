@@ -4,6 +4,7 @@ import APIHelpers from "../helpers/APIHelpers";
 import jwtHelpers from "../helpers/jwt";
 import userService from "../services/user.service";
 import { JwtPayload } from "jsonwebtoken";
+import { log } from "console";
 
 export default {
   verifyEmail: async (req: Request, res: Response) => {
@@ -41,7 +42,12 @@ export default {
 
     return APIHelpers.sendSuccess(
       res,
-      token,
+      {
+        id: user.id,
+        name: user.name,
+        role: user.role,
+        token,
+      },
       constants.SUCCESS,
       constants.SUCCESS_MESSAGE
     );
@@ -82,13 +88,14 @@ export default {
     const data = {
       ...req.body,
       role: req.body.role.toUpperCase(),
+      gender: req.body.gender.toUpperCase(),
     };
 
-    const updatedUser = await userService.update(user.id, data);
+    await userService.update(user._id, data);
 
     return APIHelpers.sendSuccess(
       res,
-      updatedUser,
+      null,
       constants.SUCCESS,
       constants.SUCCESS_MESSAGE
     );
