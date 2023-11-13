@@ -16,4 +16,8 @@ export default {
   EMAIL_EXISTS_MESSAGE: "Email already exists",
   EMAIL_ALREADY_VERIFIED_MESSAGE: "Email already verified",
   INVALID_CODE_MESSAGE: "Invalid code",
+  AUTH_REQUIRED_MESSAGE: "Authentication required",
+  INVALID_TOKEN_MESSAGE: "Invalid token",
+
+  AUTH_HEADER_NAME: "x-auth-token",
 };

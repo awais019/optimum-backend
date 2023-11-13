@@ -6,8 +6,8 @@ export default {
       expiresIn: process.env.JWT_EXPIRES_IN,
     });
   },
-  verify: (token: string, options: jwt.VerifyOptions) => {
-    return jwt.verify(token, process.env.JWT_SECRET as string, options);
+  verify: (token: string) => {
+    return jwt.verify(token, process.env.JWT_SECRET as string);
   },
   decode: (token: string) => {
     return jwt.decode(token);
