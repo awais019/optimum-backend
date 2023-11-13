@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import constants from "../constants";
 import APIHelpers from "../helpers/APIHelpers";
 import jwtHelpers from "../helpers/jwt";
-import authService from "../services/auth.service";
 import userService from "../services/user.service";
+import { JwtPayload } from "jsonwebtoken";
 
 export default {
   verifyEmail: async (req: Request, res: Response) => {
@@ -24,7 +24,7 @@ export default {
       );
     }
 
-    const codeVerification = await authService.verifyEmail(user, req.body.code);
+    const codeVerification = await userService.verifyEmail(user, req.body.code);
 
     if (!codeVerification) {
       return APIHelpers.sendError(
@@ -65,11 +65,30 @@ export default {
       );
     }
 
-    authService.resendEmail(user);
+    userService.sendEmail(user);
 
     return APIHelpers.sendSuccess(
       res,
       null,
+      constants.SUCCESS,
+      constants.SUCCESS_MESSAGE
+    );
+  },
+
+  updateProfile: async (req: Request, res: Response) => {
+    const token = req.headers["x-auth-token"] as string;
+    const user = jwtHelpers.verify(token) as JwtPayload;
+
+    const data = {
+      ...req.body,
+      role: req.body.role.toUpperCase(),
+    };
+
+    const updatedUser = await userService.update(user.id, data);
+
+    return APIHelpers.sendSuccess(
+      res,
+      updatedUser,
       constants.SUCCESS,
       constants.SUCCESS_MESSAGE
     );

@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { User, ROLE } from "@prisma/client";
 import prisma from "../prisma";
 import ejsHelpers from "../helpers/ejs";
 import emailHelpers from "../helpers/email";
@@ -28,7 +28,39 @@ export default {
     });
     return user;
   },
-  sendVerificationEmail: async (user: User) => {
+  verifyEmail: async (user: User, code: number): Promise<boolean> => {
+    const verificationCode = await prisma.verificationcode.findFirst({
+      where: {
+        code,
+        userId: user.id,
+        expiresAt: {
+          gte: new Date(),
+        },
+      },
+    });
+
+    if (!verificationCode) {
+      return false;
+    }
+
+    await prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        email_verified: true,
+      },
+    });
+
+    return true;
+  },
+  sendEmail: async (user: User) => {
+    await prisma.verificationcode.deleteMany({
+      where: {
+        userId: user.id,
+      },
+    });
+
     const code = Math.floor(100000 + Math.random() * 900000);
     const email = await ejsHelpers.renderHTMLFile("verify", {
       name: user.name,
@@ -46,5 +78,29 @@ export default {
         expiresAt: new Date(Date.now() + 60 * 60 * 1000),
       },
     });
+  },
+  update: async (id: string, data: any) => {
+    const { name, role, gender } = data;
+
+    await prisma.user.update({
+      where: {
+        id,
+      },
+      data: {
+        name,
+        role,
+        gender,
+      },
+    });
+    if (role === ROLE.PATIENT) {
+      await prisma.patient.update({
+        where: {
+          userId: id,
+        },
+        data: {
+          DOB: data.dob,
+        },
+      });
+    }
   },
 };

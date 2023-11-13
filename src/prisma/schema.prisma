@@ -24,11 +24,14 @@ model User {
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
   Verificationcode  Verificationcode[]
+  Patient           Patient[]
 }
 
 model Patient {
-  id  String   @id @default(uuid())
-  DOB DateTime
+  id     String   @id @default(uuid())
+  DOB    DateTime
+  user   User     @relation(fields: [userId], references: [id])
+  userId String   @unique
 }
 
 model Verificationcode {

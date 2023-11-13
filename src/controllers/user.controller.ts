@@ -24,7 +24,7 @@ export default {
       role,
     });
 
-    userService.sendVerificationEmail(user).catch((err) => {
+    userService.sendEmail(user).catch((err) => {
       logger.error(err);
     });
 
