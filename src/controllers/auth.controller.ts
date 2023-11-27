@@ -4,7 +4,6 @@ import APIHelpers from "../helpers/APIHelpers";
 import jwtHelpers from "../helpers/jwt";
 import userService from "../services/user.service";
 import { JwtPayload } from "jsonwebtoken";
-import { log } from "console";
 
 export default {
   verifyEmail: async (req: Request, res: Response) => {
