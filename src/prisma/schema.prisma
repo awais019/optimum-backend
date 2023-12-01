@@ -24,7 +24,8 @@ model User {
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
   Verificationcode  Verificationcode[]
-  Patient           Patient[]
+  Patient           Patient?
+  Doctor            Doctor?
 }
 
 model Patient {
@@ -32,6 +33,32 @@ model Patient {
   DOB    DateTime
   user   User     @relation(fields: [userId], references: [id])
   userId String   @unique
+}
+
+model Doctor {
+  id         String     @id @default(uuid())
+  user       User       @relation(fields: [userId], references: [id])
+  experience Int
+  userId     String     @unique
+  Location   Location?
+  Document   Document[]
+}
+
+model Location {
+  id         String @id @default(uuid())
+  clinicName String
+  address    String
+  city       String
+  state      String
+  Doctor     Doctor @relation(fields: [doctorId], references: [id])
+  doctorId   String @unique
+}
+
+model Document {
+  id       String @id @default(uuid())
+  name     String
+  Doctor   Doctor @relation(fields: [doctorId], references: [id])
+  doctorId String
 }
 
 model Verificationcode {
