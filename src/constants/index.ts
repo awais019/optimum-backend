@@ -18,6 +18,7 @@ export default {
   INVALID_CODE_MESSAGE: "Invalid code",
   AUTH_REQUIRED_MESSAGE: "Authentication required",
   INVALID_TOKEN_MESSAGE: "Invalid token",
+  FILE_NOT_FOUND_MESSAGE: "File not found",
 
   AUTH_HEADER_NAME: "x-auth-token",
 };

@@ -81,7 +81,7 @@ export default {
   },
 
   updateProfile: async (req: Request, res: Response) => {
-    const token = req.headers["x-auth-token"] as string;
+    const token = req.headers[constants.AUTH_HEADER_NAME] as string;
     const user = jwtHelpers.verify(token) as JwtPayload;
 
     const data = {
