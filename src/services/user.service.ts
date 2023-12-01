@@ -106,6 +106,20 @@ export default {
           DOB,
         },
       });
+    } else {
+      const { experience } = data;
+      await prisma.doctor.upsert({
+        where: {
+          userId: id,
+        },
+        update: {
+          experience,
+        },
+        create: {
+          userId: id,
+          experience,
+        },
+      });
     }
   },
 };
