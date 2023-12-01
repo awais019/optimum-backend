@@ -28,6 +28,13 @@ export default {
     });
     return user;
   },
+  findById: async (id: string): Promise<User | null> => {
+    return prisma.user.findFirst({
+      where: {
+        id,
+      },
+    });
+  },
   verifyEmail: async (user: User, code: number): Promise<boolean> => {
     const verificationCode = await prisma.verificationcode.findFirst({
       where: {

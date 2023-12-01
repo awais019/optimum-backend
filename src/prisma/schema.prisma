@@ -36,12 +36,14 @@ model Patient {
 }
 
 model Doctor {
-  id         String     @id @default(uuid())
-  user       User       @relation(fields: [userId], references: [id])
-  experience Int
-  userId     String     @unique
-  Location   Location?
-  Document   Document[]
+  id               String     @id @default(uuid())
+  user             User       @relation(fields: [userId], references: [id])
+  experience       Int
+  appointmentTypes String[]   @default(["PHYSICAL"])
+  userId           String     @unique
+  Location         Location?
+  Document         Document[]
+  Charges          Charges[]
 }
 
 model Location {
@@ -59,6 +61,14 @@ model Document {
   name     String
   Doctor   Doctor @relation(fields: [doctorId], references: [id])
   doctorId String
+}
+
+model Charges {
+  id               String           @id @default(uuid())
+  appointment_type APPOINTMENTTYPES @default(PHYSICAL)
+  charges          Float
+  Doctor           Doctor           @relation(fields: [doctorId], references: [id])
+  doctorId         String
 }
 
 model Verificationcode {
@@ -79,4 +89,9 @@ enum ROLE {
   ADMIN
   DOCTOR
   PATIENT
+}
+
+enum APPOINTMENTTYPES {
+  PHYSICAL
+  VIRTUAL
 }
