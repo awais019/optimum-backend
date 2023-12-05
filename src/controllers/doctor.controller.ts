@@ -6,15 +6,30 @@ import APIHelpers from "../helpers/APIHelpers";
 import jwtHelpers from "../helpers/jwt";
 import doctorService from "../services/doctor.service";
 import scheduleService from "../services/schedule.service";
+import uploadService from "../services/upload.service";
+import documentService from "../services/document.service";
 
 export default {
   create: async (req: Request, res: Response) => {
+    if (!req.files) {
+      return APIHelpers.sendError(
+        res,
+        constants.BAD_REQUEST,
+        constants.FILE_NOT_FOUND_MESSAGE
+      );
+    }
+
     const { experience } = req.body;
 
     const token = req.headers[constants.AUTH_HEADER_NAME] as string;
     const { _id } = jwtHelpers.decode(token) as JwtPayload;
 
-    await doctorService.create(experience, _id);
+    const file = Object.values(req.files)[0] as UploadedFile;
+
+    const fileName = uploadService.uploadDocument(file);
+
+    await doctorService.create(parseInt(experience), _id);
+    await documentService.create(fileName, _id);
 
     return APIHelpers.sendSuccess(res, null);
   },
