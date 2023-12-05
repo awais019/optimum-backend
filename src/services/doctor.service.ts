@@ -2,6 +2,14 @@ import { APPOINTMENTTYPES, Doctor } from "@prisma/client";
 import prisma from "../prisma";
 
 export default {
+  create: (experience: number, userId: string) => {
+    return prisma.doctor.create({
+      data: {
+        experience,
+        userId,
+      },
+    });
+  },
   findByUserId: (userId: string): Promise<Doctor | null> => {
     return prisma.doctor.findFirst({
       where: {
