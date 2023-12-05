@@ -44,6 +44,7 @@ model Doctor {
   Location         Location?
   Document         Document[]
   Charges          Charges[]
+  Schedule         Schedule[]
 }
 
 model Location {
@@ -69,6 +70,17 @@ model Charges {
   charges          Float
   Doctor           Doctor           @relation(fields: [doctorId], references: [id])
   doctorId         String
+}
+
+model Schedule {
+  id           String  @id @default(uuid())
+  day          String
+  isActive     Boolean @default(false)
+  slotDuration Int
+  startTime    String
+  endTime      String
+  Doctor       Doctor  @relation(fields: [doctorId], references: [id])
+  doctorId     String
 }
 
 model Verificationcode {
