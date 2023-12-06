@@ -1,13 +1,23 @@
-import { APPOINTMENTTYPES, Doctor } from "@prisma/client";
+import { APPOINTMENTTYPES, Doctor, GENDER } from "@prisma/client";
 import prisma from "../prisma";
 
 export default {
-  create: (experience: number, userId: string) => {
-    return prisma.doctor.create({
-      data: {
-        experience,
-        userId,
-      },
+  create: (experience: number, gender: string, userId: string) => {
+    return prisma.$transaction(async () => {
+      await prisma.user.update({
+        where: {
+          id: userId,
+        },
+        data: {
+          gender: gender.toLowerCase() == "male" ? GENDER.MALE : GENDER.FEMALE,
+        },
+      });
+      return prisma.doctor.create({
+        data: {
+          experience,
+          userId,
+        },
+      });
     });
   },
   findByUserId: (userId: string): Promise<Doctor | null> => {

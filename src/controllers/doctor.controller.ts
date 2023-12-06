@@ -8,6 +8,7 @@ import doctorService from "../services/doctor.service";
 import scheduleService from "../services/schedule.service";
 import uploadService from "../services/upload.service";
 import documentService from "../services/document.service";
+import userService from "../services/user.service";
 
 export default {
   create: async (req: Request, res: Response) => {
@@ -19,7 +20,7 @@ export default {
       );
     }
 
-    const { experience } = req.body;
+    const { experience, gender } = req.body;
 
     const token = req.headers[constants.AUTH_HEADER_NAME] as string;
     const { _id } = jwtHelpers.decode(token) as JwtPayload;
@@ -28,7 +29,7 @@ export default {
 
     const fileName = uploadService.uploadDocument(file);
 
-    await doctorService.create(parseInt(experience), _id);
+    await doctorService.create(parseInt(experience), gender, _id);
     await documentService.create(fileName, _id);
 
     return APIHelpers.sendSuccess(res, null);
