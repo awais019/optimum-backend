@@ -8,7 +8,6 @@ import doctorService from "../services/doctor.service";
 import scheduleService from "../services/schedule.service";
 import uploadService from "../services/upload.service";
 import documentService from "../services/document.service";
-import userService from "../services/user.service";
 
 export default {
   create: async (req: Request, res: Response) => {

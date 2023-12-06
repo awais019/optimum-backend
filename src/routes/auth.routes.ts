@@ -7,10 +7,6 @@ import authController from "../controllers/auth.controller";
 
 const app = Router();
 
-// profile /me routes
-
-app.put("/me", authMiddleware(), tryCatch(authController.updateProfile));
-
 // email routes
 app.post(
   "/email/verify",
