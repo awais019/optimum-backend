@@ -14,7 +14,7 @@ export default {
       });
       return prisma.patient.create({
         data: {
-          DOB: dob,
+          DOB: new Date(dob),
           userId,
         },
       });
