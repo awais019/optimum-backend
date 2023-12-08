@@ -19,4 +19,10 @@ router.post(
   tryCatch(doctorController.createSchedule)
 );
 
+router.post(
+  "/location",
+  authMiddleware(),
+  tryCatch(doctorController.createLocation)
+);
+
 export default router;

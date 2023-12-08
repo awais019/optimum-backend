@@ -79,9 +79,26 @@ export default {
         doctorId: doctor.id,
       };
     });
-    console.log(schedule);
 
     await scheduleService.createMany(schedule);
+
+    return APIHelpers.sendSuccess(res, null);
+  },
+  createLocation: async (req: Request, res: Response) => {
+    const token = req.headers[constants.AUTH_HEADER_NAME] as string;
+    const { _id } = jwtHelpers.decode(token) as JwtPayload;
+
+    const doctor = await doctorService.findByUserId(_id);
+
+    if (!doctor) {
+      return APIHelpers.sendError(
+        res,
+        constants.NOT_FOUND,
+        constants.USER_NOT_FOUND_MESSAGE
+      );
+    }
+
+    await doctorService.createLocation(req.body, doctor.id);
 
     return APIHelpers.sendSuccess(res, null);
   },

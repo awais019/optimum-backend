@@ -58,4 +58,21 @@ export default {
       })),
     });
   },
+  createLocation: (
+    location: {
+      clinicName: string;
+      address: string;
+      city: string;
+      state: string;
+      zipCode: string;
+    },
+    doctorId: string
+  ) => {
+    return prisma.location.create({
+      data: {
+        ...location,
+        doctorId,
+      },
+    });
+  },
 };
