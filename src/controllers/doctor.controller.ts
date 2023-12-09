@@ -57,9 +57,7 @@ export default {
     );
   },
   createSchedule: async (req: Request, res: Response) => {
-    let { schedule } = req.body;
     const token = req.headers[constants.AUTH_HEADER_NAME] as string;
-    console.log(schedule);
 
     const { _id } = jwtHelpers.decode(token) as JwtPayload;
 
@@ -73,7 +71,7 @@ export default {
       );
     }
 
-    schedule = schedule.map((s: any) => {
+    const schedule = req.body.map((s: any) => {
       return {
         ...s,
         doctorId: doctor.id,

@@ -53,6 +53,7 @@ model Location {
   address    String
   city       String
   state      String
+  zipCode    String
   Doctor     Doctor @relation(fields: [doctorId], references: [id])
   doctorId   String @unique
 }
