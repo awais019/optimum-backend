@@ -19,6 +19,9 @@ export default {
   AUTH_REQUIRED_MESSAGE: "Authentication required",
   INVALID_TOKEN_MESSAGE: "Invalid token",
   FILE_NOT_FOUND_MESSAGE: "File not found",
+  EMAIL_NOT_VERIFIED_MESSAGE: "Email not verified",
+  INVALID_CREDENTIALS_MESSAGE: "Invalid credentials",
+  ACCOUNT_NOT_APPROVED_MESSAGE: "Account not approved",
 
   AUTH_HEADER_NAME: "x-auth-token",
 };

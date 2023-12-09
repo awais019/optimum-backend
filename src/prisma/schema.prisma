@@ -36,15 +36,16 @@ model Patient {
 }
 
 model Doctor {
-  id               String     @id @default(uuid())
-  user             User       @relation(fields: [userId], references: [id])
-  experience       Int
-  appointmentTypes String[]   @default(["PHYSICAL"])
-  userId           String     @unique
-  Location         Location?
-  Document         Document[]
-  Charges          Charges[]
-  Schedule         Schedule[]
+  id                 String             @id @default(uuid())
+  user               User               @relation(fields: [userId], references: [id])
+  experience         Int
+  verificationStatus VERIFICATIONSTATUS @default(PENDING)
+  appointmentTypes   String[]           @default(["PHYSICAL"])
+  userId             String             @unique
+  Location           Location?
+  Document           Document[]
+  Charges            Charges[]
+  Schedule           Schedule[]
 }
 
 model Location {
@@ -107,4 +108,10 @@ enum ROLE {
 enum APPOINTMENTTYPES {
   PHYSICAL
   VIRTUAL
+}
+
+enum VERIFICATIONSTATUS {
+  PENDING
+  VERIFIED
+  REJECTED
 }

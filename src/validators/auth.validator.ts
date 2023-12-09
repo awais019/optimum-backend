@@ -12,4 +12,10 @@ export default {
       email: Joi.string().email().required(),
     }).validate(body);
   },
+  signIn: (body: { email: string; password: string }) => {
+    return Joi.object({
+      email: Joi.string().email().required(),
+      password: Joi.string().required(),
+    }).validate(body);
+  },
 };

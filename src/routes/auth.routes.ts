@@ -1,7 +1,6 @@
 import { Router } from "express";
 import validate from "../middlewares/validate";
 import tryCatch from "../middlewares/tryCatch";
-import authMiddleware from "../middlewares/auth";
 import authValidators from "../validators/auth.validator";
 import authController from "../controllers/auth.controller";
 
@@ -18,6 +17,12 @@ app.post(
   "/email/resend",
   validate(authValidators.resendEmail),
   tryCatch(authController.resendEmail)
+);
+
+app.post(
+  "/signin",
+  validate(authValidators.signIn),
+  tryCatch(authController.signIn)
 );
 
 export default app;
