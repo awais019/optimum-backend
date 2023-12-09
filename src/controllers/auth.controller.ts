@@ -84,8 +84,6 @@ export default {
   signIn: async (req: Request, res: Response) => {
     const user = await userService.findByEmail(req.body.email);
 
-    console.log(user);
-
     if (!user) {
       return APIHelpers.sendError(
         res,

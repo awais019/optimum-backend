@@ -27,6 +27,13 @@ export default {
       },
     });
   },
+  getDocument: (doctorId: string) => {
+    return prisma.doctor.findFirst({
+      where: {
+        id: doctorId,
+      },
+    });
+  },
   createCharges: async (
     charges: {
       appointment_type: string;
