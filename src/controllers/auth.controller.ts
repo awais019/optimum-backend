@@ -84,6 +84,8 @@ export default {
   signIn: async (req: Request, res: Response) => {
     const user = await userService.findByEmail(req.body.email);
 
+    console.log(user);
+
     if (!user) {
       return APIHelpers.sendError(
         res,
@@ -100,7 +102,7 @@ export default {
       );
     }
 
-    if (cryptoHelpers.comparePassword(req.body.password, user.password)) {
+    if (!cryptoHelpers.comparePassword(req.body.password, user.password)) {
       return APIHelpers.sendError(
         res,
         constants.BAD_REQUEST,
