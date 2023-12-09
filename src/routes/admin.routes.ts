@@ -7,10 +7,18 @@ const router = Router();
 
 router.post("/", tryCatch(adminController.create));
 
-router.get("/doctors", tryCatch(adminController.getDoctors));
+router.get("/doctors", adminMiddleware(), tryCatch(adminController.getDoctors));
 
-router.get("/doctors/:id", tryCatch(adminController.getDoctor));
+router.get(
+  "/doctors/:id",
+  adminMiddleware(),
+  tryCatch(adminController.getDoctor)
+);
 
-router.put("/doctors/:id", tryCatch(adminController.verifyDoctor));
+router.put(
+  "/doctors/:id",
+  adminMiddleware(),
+  tryCatch(adminController.verifyDoctor)
+);
 
 export default router;

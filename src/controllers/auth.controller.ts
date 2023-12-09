@@ -108,7 +108,7 @@ export default {
       );
     }
 
-    if ((user.role = "DOCTOR")) {
+    if (user.role == "DOCTOR") {
       const doctor = await doctorService.findByUserId(user.id);
       if (doctor && doctor.verificationStatus != VERIFICATIONSTATUS.VERIFIED) {
         return APIHelpers.sendError(
