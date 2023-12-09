@@ -1,4 +1,9 @@
-import { APPOINTMENTTYPES, Doctor, GENDER } from "@prisma/client";
+import {
+  APPOINTMENTTYPES,
+  Doctor,
+  GENDER,
+  VERIFICATIONSTATUS,
+} from "@prisma/client";
 import prisma from "../prisma";
 
 export default {
@@ -31,6 +36,34 @@ export default {
     return prisma.doctor.findFirst({
       where: {
         id: doctorId,
+      },
+    });
+  },
+  getAll: (skip = 0, take = 10) => {
+    return prisma.doctor.findMany({
+      skip,
+      take,
+      where: {
+        user: {
+          email_verified: true,
+        },
+        verificationStatus: VERIFICATIONSTATUS.VERIFIED,
+      },
+      include: {
+        user: {
+          select: {
+            name: true,
+          },
+        },
+        Location: {
+          select: {
+            clinicName: true,
+            address: true,
+            city: true,
+            state: true,
+            zipCode: true,
+          },
+        },
       },
     });
   },

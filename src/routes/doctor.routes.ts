@@ -7,6 +7,8 @@ const router = Router();
 
 router.post("/", authMiddleware(), tryCatch(doctorController.create));
 
+router.get("/", authMiddleware(), tryCatch(doctorController.getAll));
+
 router.post(
   "/charges",
   authMiddleware(),

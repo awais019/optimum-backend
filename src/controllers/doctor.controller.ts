@@ -100,4 +100,22 @@ export default {
 
     return APIHelpers.sendSuccess(res, null);
   },
+  getAll: async (req: Request, res: Response) => {
+    const doctors = await doctorService.getAll();
+
+    return APIHelpers.sendSuccess(
+      res,
+      doctors.map((doctor) => {
+        return {
+          id: doctor.id,
+          name: doctor.user.name,
+          experience: doctor.experience,
+          clinicName: doctor.Location?.clinicName,
+          address: doctor.Location?.address,
+          city: doctor.Location?.city,
+          state: doctor.Location?.state,
+        };
+      })
+    );
+  },
 };
