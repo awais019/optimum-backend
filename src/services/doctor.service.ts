@@ -115,4 +115,33 @@ export default {
       },
     });
   },
+  get: (id: string) => {
+    return prisma.doctor.findFirst({
+      where: {
+        id,
+      },
+      include: {
+        user: {
+          select: {
+            name: true,
+          },
+        },
+        Location: {
+          select: {
+            clinicName: true,
+            address: true,
+            city: true,
+            state: true,
+            zipCode: true,
+          },
+        },
+        Charges: {
+          select: {
+            appointment_type: true,
+            charges: true,
+          },
+        },
+      },
+    });
+  },
 };

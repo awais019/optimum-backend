@@ -9,6 +9,8 @@ router.post("/", authMiddleware(), tryCatch(doctorController.create));
 
 router.get("/", authMiddleware(), tryCatch(doctorController.getAll));
 
+router.get("/:id", authMiddleware(), tryCatch(doctorController.get));
+
 router.post(
   "/charges",
   authMiddleware(),

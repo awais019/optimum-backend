@@ -118,4 +118,36 @@ export default {
       })
     );
   },
+  get: async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    if (!id) {
+      return APIHelpers.sendError(
+        res,
+        constants.BAD_REQUEST,
+        constants.USER_NOT_FOUND_MESSAGE
+      );
+    }
+
+    const doctor = await doctorService.get(id);
+
+    if (!doctor) {
+      return APIHelpers.sendError(
+        res,
+        constants.NOT_FOUND,
+        constants.USER_NOT_FOUND_MESSAGE
+      );
+    }
+
+    return APIHelpers.sendSuccess(res, {
+      id: doctor.id,
+      name: doctor.user.name,
+      experience: doctor.experience,
+      clinicName: doctor.Location?.clinicName,
+      address: doctor.Location?.address,
+      city: doctor.Location?.city,
+      state: doctor.Location?.state,
+      charges: doctor.Charges,
+    });
+  },
 };
